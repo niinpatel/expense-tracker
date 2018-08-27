@@ -5,8 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon",
-    "dev": "npm run server"
+    "server": "nodemon server",
+    "client-install" : "npm i --prefix client",
+    "client": "npm start --prefix client",
+    "dev": "concurrently 'npm run server' 'npm run client'"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "author": "Nitin Patel",
   "homepage": "https://bitbucket.org/niinpatel/expense-tracker#readme",
   "devDependencies": {
+    "concurrently": "^4.0.1",
     "nodemon": "^1.18.3"
   },
   "dependencies": {
