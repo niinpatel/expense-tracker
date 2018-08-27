@@ -13,7 +13,8 @@ callback = async (accessToken, refreshToken, profile, done) => {
     let user = await User.findOneAndUpdate(
       { googleId: profile.id },
       {
-        name: profile.displayName,
+        first_name: profile._json.given_name,
+        last_name: profile._json.family_name,
         email: profile._json.email,
         picture: profile._json.picture
       },

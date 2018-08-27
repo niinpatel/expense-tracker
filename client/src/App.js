@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import Axios from "axios";
 import jwt_decode from "jwt-decode";
+import { clientId } from "./config";
 
 class App extends Component {
   constructor(props) {
@@ -29,10 +30,14 @@ class App extends Component {
           headers: { Authorization: `Bearer ${localStorage.jwt}` }
         })
           .then(res => {
+            if (!res.data) {
+              return;
+            }
             this.setState({
               isAuthenticated: true,
               user: res.data,
-              loading: false
+              loading: false,
+              error: ""
             });
           })
           .catch(err => {
@@ -51,6 +56,7 @@ class App extends Component {
       user: null,
       isAuthenticated: false
     });
+    
   };
 
   responseGoogle = response => {
@@ -68,7 +74,8 @@ class App extends Component {
         this.setState({
           isAuthenticated: true,
           loading: false,
-          user: res.data.user
+          user: res.data.user,
+          error: ""
         });
         localStorage.setItem("jwt", res.data.jwt);
       })
@@ -85,9 +92,7 @@ class App extends Component {
       <div>
         <h1>Hai</h1>
         <GoogleLogin
-          clientId={
-            "551468354047-l9atq2c5s36g72g5eebnjmll5kov7qmr.apps.googleusercontent.com"
-          }
+          clientId={clientId}
           buttonText="Login"
           onSuccess={this.responseGoogle}
           onFailure={this.responseGoogle}
@@ -96,7 +101,7 @@ class App extends Component {
 
         {/*for testing if authentication is working*/}
         {this.state.isAuthenticated && (
-          <img src={this.state.user.picture} alt={this.state.user.name} />
+          <img src={this.state.user.picture} alt={this.state.user.first_name} />
         )}
       </div>
     );
