@@ -62,3 +62,6 @@ typings/
 
 #VSCODE settings
 .vscode
+
+# Run Script For Local Environment
+run-script.sh
