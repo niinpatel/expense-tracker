@@ -1,0 +1,28 @@
+{
+  "name": "expense-tracker-app",
+  "version": "1.0.0",
+  "description": "Expense Tracker built with MERN Stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/niinpatel/expense-tracker.git"
+  },
+  "keywords": [
+    "MERN",
+    "React",
+    "Node",
+    "Express"
+  ],
+  "author": "Nitin Patel",
+  "homepage": "https://bitbucket.org/niinpatel/expense-tracker#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
