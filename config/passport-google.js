@@ -8,9 +8,26 @@ options = {
   clientSecret: googleSecret
 };
 
-callback = (accessToken, refreshToken, profile, done) => {
-  // add or u pdate user
-  // return done(err, user)
+callback = async (accessToken, refreshToken, profile, done) => {
+  try {
+    let user = await User.findOneAndUpdate(
+      { googleId: profile.id },
+      {
+        name: profile.displayName,
+        email: profile._json.email,
+        picture: profile._json.picture
+      },
+      {
+        new: true,
+        upsert: true
+      }
+    );
+
+    return done(null, user);
+  } catch (err) {
+    console.log(err);
+    return res.status(401).json({ error: JSON.stringify(err) });
+  }
 };
 
 passport.use(new GoogleTokenStrategy(options, callback));

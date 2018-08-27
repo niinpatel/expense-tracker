@@ -1,24 +1,53 @@
 const express = require("express");
 const passport = require("passport");
-const axios = require("axios");
-const qs = require("qs");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const { secretOrKey } = require("../config/keys");
+const expressJwt = require("express-jwt");
 
-router.post("/get-token", (req, res) => {
-  // get access-token from bigG
-});
-
+//@route POST /auth/google/validate
 router.post(
   "/validate",
-  passport.authenticate("passport-google-token", { session: false }),
+  passport.authenticate("google-token", { session: false }),
   (req, res) => {
-    // if req.user, send jwt token
-    // else send error with 401
+    // if req.user >> create and send jwt, else send error 401
+    if (req.user) {
+      let token = jwt.sign(
+        {
+          id: req.user.id
+        },
+        secretOrKey,
+        {
+          expiresIn: 60 * 60 * 6
+        }
+      );
+
+      return res.json({
+        user: req.user,
+        jwt: token
+      });
+    } else {
+      res.status(401).json({ error: "Validation failed" });
+    }
   }
 );
 
-router.get("/validate", (req, res) => {
-  // get current logged user
-});
+//@route GET /auth/google/validate
+router.get(
+  "/validate",
+  expressJwt({
+    secret: secretOrKey,
+    requestProperty: "auth"
+  }),
+  async (req, res) => {
+    try {
+      let user = await User.findById(req.auth.id);
+      res.json(user);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ error: JSON.stringify(err) });
+    }
+  }
+);
 
 module.exports = router;
