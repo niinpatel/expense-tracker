@@ -16,6 +16,12 @@ app.use(passport.initialize());
 const googleAuthRoutes = require("./routes/authGoogle");
 app.use("/auth/google/", googleAuthRoutes);
 
+const expenseRoutes = require("./routes/expense");
+app.use("/api/expense/", expenseRoutes);
+
+const incomeRoutes = require("./routes/income");
+app.use("/api/income/", incomeRoutes);
+
 app.listen(5000, err => {
   if (err) throw err;
   console.log("listening on 5000");
