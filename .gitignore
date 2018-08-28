@@ -65,3 +65,6 @@ typings/
 
 # Run Script For Local Environment
 run-script.sh
+
+# Git Push
+gitpush.sh
