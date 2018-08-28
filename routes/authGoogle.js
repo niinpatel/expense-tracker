@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { secretOrKey } = require("../config/keys");
 const expressJwt = require("express-jwt");
 
-//@route POST /auth/google/validate
+//@route /auth/google/validate
 router
   .route("/validate")
   .post(

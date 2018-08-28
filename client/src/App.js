@@ -31,6 +31,9 @@ class App extends Component {
         })
           .then(res => {
             if (!res.data) {
+              this.setState({
+                loading: false
+              });
               return;
             }
             this.setState({
@@ -56,7 +59,6 @@ class App extends Component {
       user: null,
       isAuthenticated: false
     });
-    
   };
 
   responseGoogle = response => {
