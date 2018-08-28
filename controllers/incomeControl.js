@@ -81,8 +81,37 @@ let deleteIncome = async (req, res) => {
   }
 };
 
+getIncome = async (req, res) => {
+  try {
+    if (req.params.incomeId) {
+      let income = await IncomeTransaction.findById(
+        req.params.incomeId
+      ).populate("user", "id");
+      let hasAuthorization = income && income.user.id == req.auth.id;
+      if (!hasAuthorization) {
+        return res.status(401).json({
+          error:
+            "Could not find the transaction or you don't have the permission"
+        });
+      } else {
+        return res.json(income);
+      }
+    } else {
+      let incomes = await IncomeTransaction.find({
+        user: await User.findById(req.auth.id)
+      });
+
+      return res.json(incomes);
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ error: e });
+  }
+};
+
 module.exports = {
   addIncome,
   editIncome,
-  deleteIncome
+  deleteIncome,
+  getIncome
 };

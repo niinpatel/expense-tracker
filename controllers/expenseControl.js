@@ -79,8 +79,37 @@ let deleteExpense = async (req, res) => {
   }
 };
 
+getExpense = async (req, res) => {
+  try {
+    if (req.params.expenseId) {
+      let expense = await ExpenseTransaction.findById(
+        req.params.expenseId
+      ).populate("user", "id");
+      let hasAuthorization = expense && expense.user.id == req.auth.id;
+      if (!hasAuthorization) {
+        return res.status(401).json({
+          error:
+            "Could not find the transaction or you don't have the permission"
+        });
+      } else {
+        return res.json(expense);
+      }
+    } else {
+      let expenses = await ExpenseTransaction.find({
+        user: await User.findById(req.auth.id)
+      });
+
+      return res.json(expenses);
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ error: e });
+  }
+};
+
 module.exports = {
   addExpense,
   editExpense,
-  deleteExpense
+  deleteExpense,
+  getExpense
 };
