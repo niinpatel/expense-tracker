@@ -5,6 +5,8 @@ import Sidebar from "./Sidebar";
 import Desktopheader from "./Desktopheader";
 import Dashboard from "./Dashboard";
 import Footer from "./Footer";
+import Stats from "./Stats";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 export default class Main extends Component {
   static propTypes = {
@@ -13,18 +15,22 @@ export default class Main extends Component {
 
   render() {
     return (
-      <div className="page-wrapper">
-        <Mobileheader />
-        <Sidebar />
-        <div className="page-container">
-          <Desktopheader />
-          <div className="main-content">
-            <Dashboard />
-            {/* <Stats /> */}
+      <BrowserRouter>
+        <div className="page-wrapper">
+          <Mobileheader />
+          <Sidebar />
+          <div className="page-container">
+            <Desktopheader />
+            <div className="main-content">
+              <Switch>
+                <Route exact path="/" component={Dashboard} />
+                <Route path="/stats" component={Stats} />
+              </Switch>
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }

@@ -477,6 +477,14 @@ section {
     background: #4272d7;
 }
 
+.au-btn--orange {
+    background: rgb(209, 72, 54);
+}
+
+.au-btn--orange:hover {
+    background: rgb(236, 68, 46);
+}
+
 .au-btn--green {
     background: #63c76a;
 }

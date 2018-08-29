@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default class Mobileheader extends Component {
   static propTypes = {
@@ -12,7 +13,7 @@ export default class Mobileheader extends Component {
         <div className="header-mobile__bar">
           <div className="container-fluid">
             <div className="header-mobile-inner">
-              <a className="logo" href="index.html">
+              <a className="logo" href="/">
                 <img src="images/icon/logo.png" alt="CoolAdmin" />
               </a>
               <button className="hamburger hamburger--slider" type="button">
@@ -27,16 +28,16 @@ export default class Mobileheader extends Component {
           <div className="container-fluid">
             <ul className="navbar-mobile__list list-unstyled">
               <li>
-                <a href="index.html">
+                <Link to="/">
                   <i className="fas fa-tachometer-alt" />
                   Dashboard
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="chart.html">
+                <Link to="/stats">
                   <i className="fas fa-chart-bar" />
                   Stats
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

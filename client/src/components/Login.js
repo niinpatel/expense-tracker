@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-// import { GoogleLogin } from "react-google-login";
-// import { clientId } from "../config";
+import { GoogleLogin } from "react-google-login";
+import { clientId } from "../config";
+import { connect } from "react-redux";
+import { googleResponse } from "../actions/authActions";
 
-export default class Login extends Component {
+class Login extends Component {
   static propTypes = {
-    prop: PropTypes
+    googleResponse: PropTypes.func.isRequired
   };
-
-  // responseGoogle = responseGoogle => {
-  //   console.log(responseGoogle);
-  // };
 
   render() {
     return (
@@ -25,16 +23,13 @@ export default class Login extends Component {
             <form>
               <div className="social-login-content">
                 <div className="social-button">
-                  {/* <GoogleLogin
+                  <GoogleLogin
                     clientId={clientId}
                     buttonText="Sign in with Google "
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
-                    className="au-btn au-btn--block au-btn--blue2"
-                  /> */}
-                  <button className="au-btn au-btn--block au-btn--blue2">
-                    Sign in with google
-                  </button>
+                    onSuccess={this.props.googleResponse}
+                    onFailure={this.props.googleResponse}
+                    className="au-btn au-btn--block au-btn--orange"
+                  />
                 </div>
               </div>
             </form>
@@ -45,3 +40,8 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { googleResponse }
+)(Login);

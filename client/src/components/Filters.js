@@ -11,7 +11,11 @@ export default class Filters extends Component {
       <div className="table-data__tool mt-5">
         <div className="table-data__tool-left">
           <div className="rs-select2--light rs-select2--md">
-            <select className="js-select2" name="property" defaultValue="all-accounts">
+            <select
+              className="js-select2"
+              name="property"
+              defaultValue="all-accounts"
+            >
               <option value="all-accounts">All Accounts</option>
               <option value="personal">Personal</option>
               <option value="business">Business</option>
@@ -40,14 +44,7 @@ export default class Filters extends Component {
             <i className="zmdi zmdi-plus" />
             add expense
           </button>
-          <div className="rs-select2--dark rs-select2--sm rs-select2--dark2">
-            <select className="js-select2" name="type" defaultValue="export">
-              <option value="export">Export</option>
-              <option value="pdf-export">As PDF</option>
-              <option value="csv-export">As CSV</option>
-            </select>
-            <div className="dropDownSelect2" />
-          </div>
+          <button className="au-btn au-btn--small btn-secondary">export</button>
         </div>
       </div>
     );
