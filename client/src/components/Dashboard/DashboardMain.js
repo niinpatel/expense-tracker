@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Filters from "./Filters";
-import Datatable from "./Datatable";
+import DataTable from "./DataTable";
 import Chart from "./Chart";
 
-export default class Dashboard extends Component {
+export default class DashboardMain extends Component {
   static propTypes = {
     prop: PropTypes
   };
@@ -21,7 +21,7 @@ export default class Dashboard extends Component {
         </div>
         <Filters />
         <Chart />
-        <Datatable />
+        <DataTable />
       </div>
     );
   }

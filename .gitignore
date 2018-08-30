@@ -68,3 +68,6 @@ run-script.sh
 
 # Git Push
 gitpush.sh
+
+# Webstorm config
+.idea

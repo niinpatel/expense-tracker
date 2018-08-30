@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export default class Mobileheader extends Component {
+export default class MobileHeader extends Component {
   static propTypes = {
     prop: PropTypes
   };

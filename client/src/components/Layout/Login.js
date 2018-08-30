@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
-import { clientId } from "../config";
+import { clientId } from "../../config";
 import { connect } from "react-redux";
-import { googleResponse } from "../actions/authActions";
+import { googleResponse } from "../../actions/authActions";
 
 class Login extends Component {
   static propTypes = {

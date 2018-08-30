@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Mobileheader from "./Mobileheader";
-import Sidebar from "./Sidebar";
-import Desktopheader from "./Desktopheader";
-import Dashboard from "./Dashboard";
-import Footer from "./Footer";
-import Stats from "./Stats";
+import MobileHeader from "./Layout/MobileHeader";
+import Sidebar from "./Layout/Sidebar";
+import Desktopheader from "./Layout/DesktopHeader";
+import DashboardMain from "./Dashboard/DashboardMain";
+import Footer from "./Layout/Footer";
+import StatsMain from "./Stats/StatsMain";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 export default class Main extends Component {
@@ -17,14 +17,14 @@ export default class Main extends Component {
     return (
       <BrowserRouter>
         <div className="page-wrapper">
-          <Mobileheader />
+          <MobileHeader />
           <Sidebar />
           <div className="page-container">
             <Desktopheader />
             <div className="main-content">
               <Switch>
-                <Route exact path="/" component={Dashboard} />
-                <Route path="/stats" component={Stats} />
+                <Route exact path="/" component={DashboardMain} />
+                <Route path="/stats" component={StatsMain} />
               </Switch>
             </div>
             <Footer />

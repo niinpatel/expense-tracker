@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Main from "./components/Main";
-import Login from "./components/Login";
+import Login from "./components/Layout/Login";
 import { connect } from "react-redux";
 
 class App extends Component {

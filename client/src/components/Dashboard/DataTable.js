@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-export default class Datatable extends Component {
+export default class DataTable extends Component {
   static propTypes = {
     prop: PropTypes
   };
