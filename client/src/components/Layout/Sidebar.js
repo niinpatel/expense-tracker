@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Link from "react-router-dom/Link";
-import classNames from "classnames";
 
 export default class Sidebar extends Component {
   static propTypes = {
@@ -19,20 +18,16 @@ export default class Sidebar extends Component {
         <div className="menu-sidebar__content js-scrollbar1">
           <nav className="navbar-sidebar">
             <ul className="list-unstyled navbar__list">
-              <li
-                className={classNames({
-                  active: window.location.pathname === "/"
-                })}
-              >
+              <li className={window.location.pathname === "/" ? "active" : ""}>
                 <Link to="/">
                   <i className="fas fa-tachometer-alt" />
                   Dashboard
                 </Link>
               </li>
               <li
-                className={classNames({
-                  active: window.location.pathname === "/stats"
-                })}
+                className={
+                  window.location.pathname === "/stats" ? "active" : ""
+                }
               >
                 <Link to="/stats">
                   <i className="fas fa-chart-bar" />

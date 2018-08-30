@@ -1431,13 +1431,13 @@ section {
     padding-left: 12px;
 }
 
-.account-item > .content > a {
+.account-item > .content > button {
     color: #333;
     text-transform: capitalize;
     font-weight: 500;
 }
 
-.account-item > .content > a:after {
+.account-item > .content > button:after {
     font-family: "Material-Design-Iconic-Font";
     font-weight: 500;
     content: '\f2f9';
@@ -1446,7 +1446,7 @@ section {
     margin-left: 5px;
 }
 
-.account-item > .content > a:hover {
+.account-item > .content > button:hover {
     color: #666;
 }
 
