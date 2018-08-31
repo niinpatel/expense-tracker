@@ -1,10 +1,33 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import DataRow from "./DataRow";
 
-export default class DataTable extends Component {
+class DataTable extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      transactions: []
+    };
+  }
+
   static propTypes = {
-    prop: PropTypes
+    incomes: PropTypes.array.isRequired,
+    expenses: PropTypes.array.isRequired
   };
+
+  componentWillReceiveProps(nextProps) {
+    let { incomes, expenses } = nextProps;
+    let transactions = [...incomes, ...expenses];
+    transactions = transactions.sort((a, b) => {
+      return a.date > b.date ? 1 : -1;
+    });
+
+    this.setState({
+      transactions: transactions
+    });
+  }
 
   render() {
     return (
@@ -22,132 +45,22 @@ export default class DataTable extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr className="tr-shadow">
-              <td>$679.00</td>
-              <td>
-                <span className="status--process">Income</span>
-              </td>
-              <td>Salary</td>
-              <td>2018-09-27 02:12</td>
-              <td className="desc">Business</td>
-              <td>Salary from job</td>
-              <td>
-                <div className="table-data-feature">
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Edit"
-                  >
-                    <i className="zmdi zmdi-edit" />
-                  </button>
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Delete"
-                  >
-                    <i className="zmdi zmdi-delete" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr className="spacer" />
-            <tr className="tr-shadow">
-              <td>$999.00</td>
-              <td>
-                <span className="status--process">Income</span>
-              </td>
-              <td>Freelance Income</td>
-              <td>2018-09-27 02:12</td>
-              <td className="desc">Business</td>
-              <td>Income from freelancer.com</td>
-              <td>
-                <div className="table-data-feature">
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Edit"
-                  >
-                    <i className="zmdi zmdi-edit" />
-                  </button>
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Delete"
-                  >
-                    <i className="zmdi zmdi-delete" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr className="spacer" />
-            <tr className="tr-shadow">
-              <td>$99.00</td>
-              <td>
-                <span className="status--denied">Expense</span>
-              </td>
-              <td>Food</td>
-              <td>2018-09-27 02:12</td>
-              <td className="desc">Personal</td>
-              <td>Eat out with friends</td>
-              <td>
-                <div className="table-data-feature">
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Edit"
-                  >
-                    <i className="zmdi zmdi-edit" />
-                  </button>
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Delete"
-                  >
-                    <i className="zmdi zmdi-delete" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr className="spacer" />
-            <tr className="tr-shadow">
-              <td>$800.00</td>
-              <td>
-                <span className="status--denied">Expense</span>
-              </td>
-              <td>Rent</td>
-              <td>2018-09-27 02:12</td>
-              <td className="desc">Personal</td>
-              <td>Rent Paid</td>
-              <td>
-                <div className="table-data-feature">
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Edit"
-                  >
-                    <i className="zmdi zmdi-edit" />
-                  </button>
-                  <button
-                    className="item"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Delete"
-                  >
-                    <i className="zmdi zmdi-delete" />
-                  </button>
-                </div>
-              </td>
-            </tr>
+            {this.state.transactions.map(transaction => {
+              return [
+                <DataRow transaction={transaction} key={transaction._id} />,
+                <tr className="spacer" key={transaction._id + "spacer"} />
+              ];
+            })}
           </tbody>
         </table>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  incomes: state.transactions.incomes,
+  expenses: state.transactions.expenses
+});
+
+export default connect(mapStateToProps)(DataTable);

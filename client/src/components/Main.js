@@ -7,11 +7,40 @@ import DashboardMain from "./Dashboard/DashboardMain";
 import Footer from "./Layout/Footer";
 import StatsMain from "./Stats/StatsMain";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Axios from "axios";
+import { connect } from "react-redux";
+import {
+  setExpenses,
+  setIncomes,
+  getErrors
+} from "../actions/transactionActions";
 
-export default class Main extends Component {
+class Main extends Component {
   static propTypes = {
-    prop: PropTypes
+    setExpenses: PropTypes.func.isRequired,
+    setIncomes: PropTypes.func.isRequired,
+    getErrors: PropTypes.func.isRequired
   };
+
+  componentDidMount() {
+    Axios.get("/api/expense/")
+      .then(res => {
+        this.props.setExpenses(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.getErrors(err.response.data);
+      });
+
+    Axios.get("/api/income/")
+      .then(res => {
+        this.props.setIncomes(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.getErrors(err.response.data);
+      });
+  }
 
   render() {
     return (
@@ -34,3 +63,8 @@ export default class Main extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { setExpenses, setIncomes, getErrors }
+)(Main);

@@ -33,7 +33,6 @@ class Login extends Component {
                 </div>
               </div>
             </form>
-            <div className="register-link" />
           </div>
         </div>
       </div>

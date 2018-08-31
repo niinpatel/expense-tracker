@@ -17,20 +17,6 @@ class DesktopHeader extends Component {
     logoutUser: PropTypes.func.isRequired
   };
 
-  logoutUser = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    this.props.logoutUser();
-  };
-
-  changeDropDown = () => {
-    console.log("show dropdown set to", !this.state.showDropDown);
-    this.setState({
-      showDropDown: !this.state.showDropDown
-    });
-  };
-
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClicks);
   }
@@ -40,14 +26,16 @@ class DesktopHeader extends Component {
   }
 
   handleClicks = event => {
+    const { showDropDown } = this.state;
     if (this.changeDropDownNode.contains(event.target)) {
+      if (this.logoutNode.contains(event.target)) {
+        this.props.logoutUser();
+        return;
+      }
       this.setState({
-        showDropDown: !this.state.showDropDown
+        showDropDown: !showDropDown
       });
-    } else if (
-      this.state.showDropDown &&
-      !this.dropDownNode.contains(event.target)
-    ) {
+    } else if (showDropDown && !this.dropDownNode.contains(event.target)) {
       this.setState({
         showDropDown: false
       });
@@ -111,7 +99,7 @@ class DesktopHeader extends Component {
                         </div>
                       </div>
                       <div className="account-dropdown__footer">
-                        <a href="/" onClick={this.logoutUser}>
+                        <a href="/" ref={node => (this.logoutNode = node)}>
                           <i className="zmdi zmdi-power" />
                           Logout
                         </a>

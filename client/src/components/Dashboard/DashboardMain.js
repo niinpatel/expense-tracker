@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Filters from "./Filters";
 import DataTable from "./DataTable";
-import Chart from "./Chart";
+import Chart from "./ChartWrapper";
 
 export default class DashboardMain extends Component {
-  static propTypes = {
-    prop: PropTypes
-  };
+  static propTypes = {};
 
   render() {
     return (
