@@ -1,10 +1,27 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
+import $ from "jquery";
+import "select2/dist/css/select2.min.css";
+import "select2/dist/js/select2.min";
 
 export default class Filters extends Component {
   // static propTypes = {
   //   prop: PropTypes
   // };
+
+  componentDidMount() {
+    // Slider 2
+    try {
+      $(".js-select2").each(function() {
+        $(this).select2({
+          minimumResultsForSearch: 20,
+          dropdownParent: $(this).next(".dropDownSelect2")
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     return (
