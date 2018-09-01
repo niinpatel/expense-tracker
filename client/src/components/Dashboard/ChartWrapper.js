@@ -71,6 +71,8 @@ class ChartWrapper extends Component {
                 income={this.state.totalIncome}
                 expense={this.state.totalExpense}
               />
+
+              {/* <div className="row no-gutters">Some info here</div> */}
             </div>
           </div>
         </div>

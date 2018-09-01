@@ -6,7 +6,7 @@ export default () => {
     <aside className="menu-sidebar d-none d-lg-block">
       <div className="logo">
         <Link to="/">
-          <img src="images/icon/logo.png" alt="Cool Admin" />
+          <img src="images/icon/logo.png" alt="Expense Tracker" />
         </Link>
       </div>
       <div className="menu-sidebar__content js-scrollbar1">

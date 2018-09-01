@@ -4,6 +4,8 @@ const cors = require("cors");
 require("./dbconnect");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const path = require("path");
+const { port } = require("./config/keys");
 
 app.use(cors());
 
@@ -22,7 +24,17 @@ app.use("/api/expense/", expenseRoutes);
 const incomeRoutes = require("./routes/income");
 app.use("/api/income/", incomeRoutes);
 
-app.listen(5000, err => {
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
+  app.get("/favicon.ico", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "favicon.ico"));
+  });
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+app.listen(port, err => {
   if (err) throw err;
-  console.log("listening on 5000");
+  console.log(`listening on ${port}`);
 });

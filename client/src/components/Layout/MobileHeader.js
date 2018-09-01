@@ -8,7 +8,7 @@ export default () => {
         <div className="container-fluid">
           <div className="header-mobile-inner">
             <a className="logo" href="/">
-              <img src="images/icon/logo.png" alt="CoolAdmin" />
+              <img src="images/icon/logo.png" alt="Expense Tracker" />
             </a>
             <button className="hamburger hamburger--slider" type="button">
               <span className="hamburger-box">
