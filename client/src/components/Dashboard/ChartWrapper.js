@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Chart from "./Chart";
+import Chart from "./PieChart";
 
 class ChartWrapper extends Component {
   constructor(props) {
@@ -37,14 +37,15 @@ class ChartWrapper extends Component {
       : totalIncome;
 
     this.setState({
-      totalExpense,
-      totalIncome
+      totalExpense: parseFloat(totalExpense),
+      totalIncome: parseFloat(totalIncome)
     });
   }
 
   render() {
+    const saved = this.state.totalIncome - this.state.totalExpense;
     return (
-      <div className="col-lg-12 m-t-50">
+      <div className="col-lg-6 m-t-50">
         <div className="au-card chart-percent-card">
           <div className="au-card-inner">
             <h3 className="title-2 tm-b-5">Stats</h3>
@@ -71,8 +72,15 @@ class ChartWrapper extends Component {
                 income={this.state.totalIncome}
                 expense={this.state.totalExpense}
               />
-
-              {/* <div className="row no-gutters">Some info here</div> */}
+              <div className="row no-gutters lead">
+                <p>
+                  You saved $
+                  <span className={saved < 0 ? "text-danger" : "text-success"}>
+                    {saved}
+                  </span>{" "}
+                  this month. {saved > 0 && "Well done!"}
+                </p>
+              </div>
             </div>
           </div>
         </div>

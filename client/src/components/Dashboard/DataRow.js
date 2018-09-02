@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Moment from "react-moment";
 
 export default class DataRow extends Component {
   static propTypes = {
@@ -23,7 +24,9 @@ export default class DataRow extends Component {
           </span>
         </td>
         <td>{transaction.category}</td>
-        <td>{transaction.date}</td>
+        <td>
+          <Moment format="DD-MM-YYYY">{transaction.date}</Moment>
+        </td>
         <td className="desc">{transaction.account}</td>
         <td>{transaction.comment}</td>
         <td>
