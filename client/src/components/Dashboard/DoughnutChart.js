@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chart from "chart.js/dist/Chart.bundle.min";
 
-export default class PieChart extends Component {
+export default class DoughnutChart extends Component {
   componentWillReceiveProps(nextProps) {
     console.log();
     if (this.chartNode) {

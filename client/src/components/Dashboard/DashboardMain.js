@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Filters from "./Filters";
 import DataTable from "./DataTable";
-import Chart from "./ChartWrapper";
+import IncomeExpenseChart from "./IncomeExpenseChart";
+import BreakDownChart from "./BreakDownChart";
 
 export default class DashboardMain extends Component {
   static propTypes = {};
@@ -17,7 +18,10 @@ export default class DashboardMain extends Component {
           </div>
         </div>
         <Filters />
-        <Chart />
+        <div className="row">
+          <IncomeExpenseChart />
+          <BreakDownChart />
+        </div>
         <DataTable />
       </div>
     );

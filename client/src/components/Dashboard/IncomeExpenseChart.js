@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Chart from "./PieChart";
+import DoughnutChart from "./DoughnutChart";
 
-class ChartWrapper extends Component {
+class IncomeExpenseChart extends Component {
   constructor(props) {
     super(props);
 
@@ -45,7 +45,7 @@ class ChartWrapper extends Component {
   render() {
     const saved = this.state.totalIncome - this.state.totalExpense;
     return (
-      <div className="col-lg-6 m-t-50">
+      <div className="col-lg-6 m-t-5">
         <div className="au-card chart-percent-card">
           <div className="au-card-inner">
             <h3 className="title-2 tm-b-5">Stats</h3>
@@ -68,7 +68,7 @@ class ChartWrapper extends Component {
                   </div>
                 </div>
               </div>
-              <Chart
+              <DoughnutChart
                 income={this.state.totalIncome}
                 expense={this.state.totalExpense}
               />
@@ -94,4 +94,4 @@ const mapStateToProps = state => ({
   expenses: state.transactions.expenses
 });
 
-export default connect(mapStateToProps)(ChartWrapper);
+export default connect(mapStateToProps)(IncomeExpenseChart);
