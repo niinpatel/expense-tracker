@@ -21,7 +21,7 @@ class DataTable extends Component {
     let { incomes, expenses } = nextProps;
     let transactions = [...incomes, ...expenses];
     transactions = transactions.sort((a, b) => {
-      return a.date > b.date ? 1 : -1;
+      return a.date < b.date ? 1 : -1;
     });
 
     this.setState({
