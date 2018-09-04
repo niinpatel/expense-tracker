@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Filters from "./Filters";
 import DataTable from "./DataTable";
-import Chart from "./ChartWrapper";
+import Charts from "./Charts";
 
 export default class DashboardMain extends Component {
   static propTypes = {};
@@ -17,7 +17,7 @@ export default class DashboardMain extends Component {
           </div>
         </div>
         <Filters />
-        <Chart />
+        <Charts />
         <DataTable />
       </div>
     );

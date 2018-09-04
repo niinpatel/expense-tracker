@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Chart from "./PieChart";
+import Chart from "chart.js/dist/Chart.bundle.min";
 
-class ChartWrapper extends Component {
+class IncomeExpenseChart extends Component {
   constructor(props) {
     super(props);
 
@@ -36,16 +36,60 @@ class ChartWrapper extends Component {
       ? totalIncome.toFixed(2)
       : totalIncome;
 
-    this.setState({
-      totalExpense: parseFloat(totalExpense),
-      totalIncome: parseFloat(totalIncome)
-    });
+    this.setState(
+      {
+        totalExpense: parseFloat(totalExpense),
+        totalIncome: parseFloat(totalIncome)
+      },
+      this.drawChart
+    );
   }
+
+  drawChart = () => {
+    if (this.chartNode) {
+      this.chartNode.height = 350;
+      new Chart(this.chartNode, {
+        type: "doughnut",
+        data: {
+          datasets: [
+            {
+              label: "Income and Expenses Chart",
+              data: [this.state.totalIncome, this.state.totalExpense],
+              backgroundColor: ["#63c76a", "#ff4b5a"],
+              hoverBackgroundColor: ["#63c76a", "#ff4b5a"],
+              borderWidth: [0, 0],
+              hoverBorderColor: ["transparent", "transparent"]
+            }
+          ],
+          labels: ["Income", "Expenses"]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          cutoutPercentage: 55,
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            titleFontFamily: "Poppins",
+            xPadding: 16,
+            yPadding: 10,
+            caretPadding: 0,
+            bodyFontSize: 16
+          }
+        }
+      });
+    }
+  };
 
   render() {
     const saved = this.state.totalIncome - this.state.totalExpense;
     return (
-      <div className="col-lg-6 m-t-50">
+      <div className="col-lg-6 m-t-5">
         <div className="au-card chart-percent-card">
           <div className="au-card-inner">
             <h3 className="title-2 tm-b-5">Stats</h3>
@@ -68,15 +112,24 @@ class ChartWrapper extends Component {
                   </div>
                 </div>
               </div>
-              <Chart
-                income={this.state.totalIncome}
-                expense={this.state.totalExpense}
-              />
+              <div className="col-xl-6 ">
+                <div>
+                  <canvas
+                    id="percent-chart"
+                    ref={node => (this.chartNode = node)}
+                  />
+                </div>
+              </div>
               <div className="row no-gutters lead">
                 <p>
-                  You saved $
-                  <span className={saved < 0 ? "text-danger" : "text-success"}>
-                    {saved}
+                  You saved{" "}
+                  <span
+                    className={
+                      (saved < 0 ? "text-danger" : "text-success") +
+                      " font-weight-bold"
+                    }
+                  >
+                    ${saved.toFixed(2)}
                   </span>{" "}
                   this month. {saved > 0 && "Well done!"}
                 </p>
@@ -94,4 +147,4 @@ const mapStateToProps = state => ({
   expenses: state.transactions.expenses
 });
 
-export default connect(mapStateToProps)(ChartWrapper);
+export default connect(mapStateToProps)(IncomeExpenseChart);

@@ -5,10 +5,14 @@ const ObjectId = Schema.Types.ObjectId;
 const expenseTransactionSchema = new Schema({
   user: { type: ObjectId, ref: "User" },
   date: { type: Date, default: Date.now },
-  category: String,
+  category: { name: String, color: String },
   amount: Number,
   account: String,
-  comment: String
+  comment: String,
+  type: {
+    type: String,
+    default: "expense"
+  }
 });
 
 module.exports = mongoose.model("ExpenseTransaction", expenseTransactionSchema);

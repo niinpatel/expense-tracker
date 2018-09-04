@@ -9,12 +9,12 @@ export default function(state = initialState, action) {
   if (action.type === SET_EXPENSES) {
     return {
       ...state,
-      expenses: action.payload.map(each => ({ ...each, type: "expense" }))
+      expenses: action.payload
     };
   } else if (action.type === SET_INCOMES) {
     return {
       ...state,
-      incomes: action.payload.map(each => ({ ...each, type: "income" }))
+      incomes: action.payload
     };
   } else {
     return state;
