@@ -27,6 +27,8 @@ callback = async (accessToken, refreshToken, profile, done) => {
       );
       return done(null, user);
     } else {
+      const expense_categories = ["Rent", "Food", "Travel", "Entertainment"];
+      const income_categories = ["Salary"];
       let user = await User.findOneAndUpdate(
         { googleId: profile.id },
         {
@@ -34,8 +36,8 @@ callback = async (accessToken, refreshToken, profile, done) => {
           last_name: profile._json.family_name,
           email: profile._json.email,
           picture: profile._json.picture,
-          expense_categories: ["Rent", "Food", "Travel", "Entertainment"],
-          income_categories: ["Salary"],
+          expense_categories: expense_categories.map(name => ({ name: name })),
+          income_categories: income_categories.map(name => ({ name: name })),
           accounts: ["Personal"]
         },
         {

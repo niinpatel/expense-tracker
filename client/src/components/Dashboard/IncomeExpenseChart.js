@@ -125,12 +125,11 @@ class IncomeExpenseChart extends Component {
                   You saved{" "}
                   <span
                     className={
-                      saved < 0
-                        ? "text-danger"
-                        : "text-success" + " font-weight-bold"
+                      (saved < 0 ? "text-danger" : "text-success") +
+                      " font-weight-bold"
                     }
                   >
-                    ${saved}
+                    ${saved.toFixed(2)}
                   </span>{" "}
                   this month. {saved > 0 && "Well done!"}
                 </p>

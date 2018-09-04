@@ -6,16 +6,21 @@ let addIncome = async (req, res) => {
     let newTransaction = new IncomeTransaction(req.body);
     let user = await User.findById(req.auth.id);
     newTransaction.user = user;
+    let category = user.income_categories.find(
+      category => category.name === req.body.category.name
+    );
 
-    user.income_transactions.unshift(newTransaction.id);
-
-    if (!user.income_categories.includes(req.body.category)) {
+    if (!category) {
       user.income_categories.push(req.body.category);
+      await user.save();
+      category = user.income_categories.find(
+        category => category.name === req.body.category.name
+      );
     }
 
+    newTransaction.category = category;
     await newTransaction.save();
-    await user.save();
-    return res.json(user);
+    return res.json(newTransaction);
   } catch (e) {
     console.log(e);
     return res.status(400).json({ error: e });
@@ -67,14 +72,9 @@ let deleteIncome = async (req, res) => {
       return res.status(401).json({ error: "You don't have permission" });
     }
 
-    let user = await User.findById(req.auth.id);
-    let removeIndex = user.income_transactions.indexOf(req.params.incomeId);
-
-    user.income_transactions.splice(removeIndex, 1);
-    await user.save();
     await income.remove(req.params.incomeId);
 
-    return res.json(user);
+    return res.json({ success: true });
   } catch (e) {
     console.log(e);
     return res.status(400).json({ error: e });

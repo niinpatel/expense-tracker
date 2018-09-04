@@ -23,7 +23,7 @@ export default class DataRow extends Component {
             {transaction.type}
           </span>
         </td>
-        <td>{transaction.category}</td>
+        <td>{transaction.category.name}</td>
         <td>
           <Moment format="DD-MM-YYYY">{transaction.date}</Moment>
         </td>

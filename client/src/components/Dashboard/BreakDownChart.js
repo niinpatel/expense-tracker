@@ -12,7 +12,8 @@ class BreakDownChart extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const expenseByCategories = nextProps.expenses.reduce((ac, cu) => {
-      const current = ac.find(each => each.category === cu.category);
+      const current = ac.find(each => each.category.name === cu.category.name);
+      console.log(cu.category.name);
       if (current) {
         current.amount += cu.amount;
       } else {
@@ -37,7 +38,7 @@ class BreakDownChart extends Component {
       ];
       data.labels = [];
       this.state.expenseByCategories.forEach(expense => {
-        data.labels.push(expense.category);
+        data.labels.push(expense.category.name);
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);

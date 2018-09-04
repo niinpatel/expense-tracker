@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
+let getRandomColor = () => {
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
+  return "rgb(" + r + "," + g + "," + b + ")";
+};
 
 const userSchema = new Schema({
   googleId: String,
@@ -8,11 +13,25 @@ const userSchema = new Schema({
   last_name: String,
   email: String,
   picture: String,
-  expense_categories: [String],
-  income_categories: [String],
-  accounts: [String],
-  income_transactions: [{ type: ObjectId, ref: "IncomeTransaction" }],
-  expense_transactions: [{ type: ObjectId, ref: "ExpenseTransaction" }]
+  expense_categories: [
+    {
+      name: { type: String },
+      color: {
+        type: String,
+        default: getRandomColor
+      }
+    }
+  ],
+  income_categories: [
+    {
+      name: { type: String },
+      color: {
+        type: String,
+        default: getRandomColor
+      }
+    }
+  ],
+  accounts: [String]
 });
 
 module.exports = User = mongoose.model("User", userSchema);
