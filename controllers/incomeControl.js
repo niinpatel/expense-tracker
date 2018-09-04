@@ -7,14 +7,14 @@ let addIncome = async (req, res) => {
     let user = await User.findById(req.auth.id);
     newTransaction.user = user;
     let category = user.income_categories.find(
-      category => category.name === req.body.category.name
+      category => category.name === req.body.category.name.trim()
     );
 
     if (!category) {
       user.income_categories.push(req.body.category);
       await user.save();
       category = user.income_categories.find(
-        category => category.name === req.body.category.name
+        category => category.name === req.body.category.name.trim()
       );
     }
 

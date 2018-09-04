@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-let getRandomColor = () => {
-  let r = Math.floor(Math.random() * 255);
-  let g = Math.floor(Math.random() * 255);
-  let b = Math.floor(Math.random() * 255);
-  return "rgb(" + r + "," + g + "," + b + ")";
-};
+const getRandomColor = require("../utils/getRandomColor");
 
 const userSchema = new Schema({
   googleId: String,
@@ -15,7 +10,7 @@ const userSchema = new Schema({
   picture: String,
   expense_categories: [
     {
-      name: { type: String },
+      name: { type: String, trim: true },
       color: {
         type: String,
         default: getRandomColor
@@ -24,7 +19,7 @@ const userSchema = new Schema({
   ],
   income_categories: [
     {
-      name: { type: String },
+      name: { type: String, trim: true },
       color: {
         type: String,
         default: getRandomColor

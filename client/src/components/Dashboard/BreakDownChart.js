@@ -13,7 +13,6 @@ class BreakDownChart extends Component {
   componentWillReceiveProps(nextProps) {
     const expenseByCategories = nextProps.expenses.reduce((ac, cu) => {
       const current = ac.find(each => each.category.name === cu.category.name);
-      console.log(cu.category.name);
       if (current) {
         current.amount += cu.amount;
       } else {
@@ -30,27 +29,23 @@ class BreakDownChart extends Component {
 
   drawChart = () => {
     if (this.pieChartNode) {
-      this.pieChartNode.height = 150;
+      this.pieChartNode.height = 395;
 
-      const data = [];
+      const data = {};
       data.datasets = [
-        { data: [], backgroundColor: [], hoverBackgroundColor: [] }
+        {
+          data: [],
+          backgroundColor: [],
+          hoverBackgroundColor: [],
+          borderWidth: [0, 0]
+        }
       ];
       data.labels = [];
-      this.state.expenseByCategories.forEach(expense => {
-        data.labels.push(expense.category.name);
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
-        const randomColor = "rgb(" + r + "," + g + "," + b + ")";
-
-        data.datasets[0].data.push(expense.amount);
-        data.datasets[0].backgroundColor.push(
-          expense.category.color || randomColor
-        );
-        data.datasets[0].hoverBackgroundColor.push(
-          expense.category.color || randomColor
-        );
+      this.state.expenseByCategories.forEach(({ amount, category }) => {
+        data.labels.push(category.name);
+        data.datasets[0].data.push(amount);
+        data.datasets[0].backgroundColor.push(category.color);
+        data.datasets[0].hoverBackgroundColor.push(category.color);
       });
       new Chart(this.pieChartNode, {
         type: "pie",
@@ -62,7 +57,7 @@ class BreakDownChart extends Component {
               fontFamily: "Poppins"
             }
           },
-          responsive: true
+          responsive: false
         }
       });
     }
@@ -70,10 +65,14 @@ class BreakDownChart extends Component {
   render() {
     return (
       <div className="col-lg-6 m-t-5">
-        <div className="au-card m-b-30">
+        <div className="au-card">
           <div className="au-card-inner">
-            <h3 className="title-2 m-b-40">Expenses Breakdown</h3>
-            <canvas id="pieChart" ref={node => (this.pieChartNode = node)} />
+            <h3 className="title-2">Expenses Breakdown</h3>
+            <canvas
+              className="m-l-15"
+              id="pieChart"
+              ref={node => (this.pieChartNode = node)}
+            />
           </div>
         </div>
       </div>
