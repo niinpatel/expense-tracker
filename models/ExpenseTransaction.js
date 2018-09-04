@@ -11,7 +11,7 @@ const expenseTransactionSchema = new Schema({
   comment: String,
   type: {
     type: String,
-    default: "expense"
+    default: "Expense"
   }
 });
 

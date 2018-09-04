@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import $ from "jquery";
 import "select2/dist/css/select2.min.css";
 import "select2/dist/js/select2.min";
+import AddExpenseModal from "./AddExpenseModal";
 
 export default class Filters extends Component {
   // static propTypes = {
@@ -57,12 +58,17 @@ export default class Filters extends Component {
             <i className="zmdi zmdi-plus" />
             add income
           </button>
-          <button className="au-btn au-btn-icon au-btn--red au-btn--small">
+          <button
+            className="au-btn au-btn-icon au-btn--red au-btn--small"
+            data-toggle="modal"
+            data-target="#add-expense"
+          >
             <i className="zmdi zmdi-plus" />
             add expense
           </button>
           <button className="au-btn au-btn--small btn-secondary">export</button>
         </div>
+        <AddExpenseModal />
       </div>
     );
   }

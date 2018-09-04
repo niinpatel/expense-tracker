@@ -11,7 +11,7 @@ const incomeTransactionSchema = new Schema({
   comment: String,
   type: {
     type: String,
-    default: "income"
+    default: "Income"
   }
 });
 
