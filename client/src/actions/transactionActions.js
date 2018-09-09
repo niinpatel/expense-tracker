@@ -2,7 +2,8 @@ import {
   SET_EXPENSES,
   SET_INCOMES,
   GET_ERRORS,
-  REMOVE_TRANSACTION
+  REMOVE_TRANSACTION,
+  ADD_EXPENSE
 } from "./types";
 import axios from "axios";
 
@@ -18,6 +19,23 @@ export const setIncomes = transactions => {
     type: SET_INCOMES,
     payload: transactions
   };
+};
+
+export const addExpense = transaction => dispatch => {
+  axios
+    .post("/api/expense/", transaction)
+    .then(res => {
+      dispatch({
+        type: ADD_EXPENSE,
+        payload: res.data
+      });
+    })
+    .catch(e => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: e.response.data
+      });
+    });
 };
 
 export const deleteTransaction = transaction => dispatch => {
