@@ -47,7 +47,11 @@ class BreakDownChart extends Component {
         data.datasets[0].backgroundColor.push(category.color);
         data.datasets[0].hoverBackgroundColor.push(category.color);
       });
-      new Chart(this.pieChartNode, {
+
+      if (this.Chart) {
+        this.Chart.destroy();
+      }
+      this.Chart = new Chart(this.pieChartNode, {
         type: "pie",
         data,
         options: {

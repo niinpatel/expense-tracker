@@ -3,7 +3,8 @@ import {
   SET_INCOMES,
   GET_ERRORS,
   REMOVE_TRANSACTION,
-  ADD_EXPENSE
+  ADD_EXPENSE,
+  ADD_INCOME
 } from "./types";
 import axios from "axios";
 
@@ -27,6 +28,23 @@ export const addExpense = transaction => dispatch => {
     .then(res => {
       dispatch({
         type: ADD_EXPENSE,
+        payload: res.data
+      });
+    })
+    .catch(e => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: e.response.data
+      });
+    });
+};
+
+export const addIncome = transaction => dispatch => {
+  axios
+    .post("/api/income/", transaction)
+    .then(res => {
+      dispatch({
+        type: ADD_INCOME,
         payload: res.data
       });
     })
