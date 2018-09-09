@@ -1,6 +1,32 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addExpense } from "../../actions/transactionActions";
 
 class AddExpenseModal extends Component {
+  state = {
+    date: "",
+    amount: "",
+    category: "",
+    comment: "",
+    account: "Personal"
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    let transaction = {};
+    transaction.date = this.state.date ? this.state.date : undefined;
+    transaction.amount = this.state.amount;
+    transaction.category = { name: this.state.category };
+    transaction.comment = this.state.comment;
+    transaction.account = this.state.account;
+    this.props.addExpense(transaction);
+  };
   render() {
     return (
       <div
@@ -28,9 +54,15 @@ class AddExpenseModal extends Component {
             </div>
             <div className="modal-body">
               <div className="card-body card-block">
-                <form action="" method="post" className="">
+                <form>
                   <div className="form-group">
-                    <input type="date" name="date" className="form-control" />
+                    <input
+                      type="date"
+                      name="date"
+                      className="form-control"
+                      value={this.state.date}
+                      onChange={this.handleChange}
+                    />
                   </div>
 
                   <div className="form-group">
@@ -39,6 +71,8 @@ class AddExpenseModal extends Component {
                       type="number"
                       placeholder="Enter Amount.."
                       className="form-control"
+                      value={this.state.amount}
+                      onChange={this.handleChange}
                     />
                   </div>
                   <div className="form-group">
@@ -47,22 +81,31 @@ class AddExpenseModal extends Component {
                       type="text"
                       placeholder="Category.."
                       className="form-control"
+                      value={this.state.category}
+                      onChange={this.handleChange}
                     />
                   </div>
 
                   <div className="form-group">
                     <input
-                      name="Comment"
+                      name="comment"
                       type="text"
                       placeholder="Comments.."
                       className="form-control"
+                      value={this.state.comments}
+                      onChange={this.handleChange}
                     />
                   </div>
 
                   <div className="form-group">
-                    <select name="account" id="select" className="form-control">
-                      <option value="Personal">Personal</option>
-                    </select>
+                    <input
+                      type="text"
+                      name="account"
+                      id="select"
+                      className="form-control"
+                      value={this.state.account}
+                      onChange={this.handleChange}
+                    />
                   </div>
                 </form>
               </div>
@@ -75,7 +118,12 @@ class AddExpenseModal extends Component {
               >
                 Cancel
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this.handleSubmit}
+                data-dismiss="modal"
+              >
                 Confirm
               </button>
             </div>
@@ -86,4 +134,7 @@ class AddExpenseModal extends Component {
   }
 }
 
-export default AddExpenseModal;
+export default connect(
+  null,
+  { addExpense }
+)(AddExpenseModal);

@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
+import { connect } from "react-redux";
+import { deleteTransaction } from "../../actions/transactionActions";
 
-export default class DataRow extends Component {
+class DataRow extends Component {
   static propTypes = {
-    transaction: PropTypes.object.isRequired
+    transaction: PropTypes.object.isRequired,
+    deleteTransaction: PropTypes.func.isRequired
   };
 
   render() {
@@ -15,7 +18,7 @@ export default class DataRow extends Component {
         <td>
           <span
             className={
-              transaction.type === "income"
+              transaction.type === "Income"
                 ? "status--process"
                 : "status--denied"
             }
@@ -44,6 +47,7 @@ export default class DataRow extends Component {
               data-toggle="tooltip"
               data-placement="top"
               title="Delete"
+              onClick={e => this.props.deleteTransaction(transaction)}
             >
               <i className="zmdi zmdi-delete" />
             </button>
@@ -53,3 +57,8 @@ export default class DataRow extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { deleteTransaction }
+)(DataRow);
