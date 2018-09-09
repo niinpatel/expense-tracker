@@ -48,7 +48,10 @@ class IncomeExpenseChart extends Component {
   drawChart = () => {
     if (this.chartNode) {
       this.chartNode.height = 350;
-      new Chart(this.chartNode, {
+      if (this.Chart) {
+        this.Chart.destroy();
+      }
+      this.Chart = new Chart(this.chartNode, {
         type: "doughnut",
         data: {
           datasets: [

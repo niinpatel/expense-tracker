@@ -4,6 +4,7 @@ import $ from "jquery";
 import "select2/dist/css/select2.min.css";
 import "select2/dist/js/select2.min";
 import AddExpenseModal from "./AddExpenseModal";
+import AddIncomeModal from "./AddIncomeModal";
 
 export default class Filters extends Component {
   // static propTypes = {
@@ -54,7 +55,11 @@ export default class Filters extends Component {
           </button>
         </div>
         <div className="table-data__tool-right">
-          <button className="au-btn au-btn-icon au-btn--green au-btn--small">
+          <button
+            className="au-btn au-btn-icon au-btn--green au-btn--small"
+            data-toggle="modal"
+            data-target="#add-income"
+          >
             <i className="zmdi zmdi-plus" />
             add income
           </button>
@@ -69,6 +74,7 @@ export default class Filters extends Component {
           <button className="au-btn au-btn--small btn-secondary">export</button>
         </div>
         <AddExpenseModal />
+        <AddIncomeModal />
       </div>
     );
   }

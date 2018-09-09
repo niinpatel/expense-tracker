@@ -2,7 +2,8 @@ import {
   SET_EXPENSES,
   SET_INCOMES,
   REMOVE_TRANSACTION,
-  ADD_EXPENSE
+  ADD_EXPENSE,
+  ADD_INCOME
 } from "../actions/types";
 
 const initialState = {
@@ -26,6 +27,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         expenses: [...state.expenses, action.payload]
+      };
+    case ADD_INCOME:
+      return {
+        ...state,
+        incomes: [...state.incomes, action.payload]
       };
     case REMOVE_TRANSACTION:
       const type = action.payload.type === "Income" ? "incomes" : "expenses";
