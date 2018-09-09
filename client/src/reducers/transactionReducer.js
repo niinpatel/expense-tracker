@@ -1,4 +1,8 @@
-import { SET_EXPENSES, SET_INCOMES } from "../actions/types";
+import {
+  SET_EXPENSES,
+  SET_INCOMES,
+  REMOVE_TRANSACTION
+} from "../actions/types";
 
 const initialState = {
   incomes: [],
@@ -6,17 +10,27 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  if (action.type === SET_EXPENSES) {
-    return {
-      ...state,
-      expenses: action.payload
-    };
-  } else if (action.type === SET_INCOMES) {
-    return {
-      ...state,
-      incomes: action.payload
-    };
-  } else {
-    return state;
+  switch (action.type) {
+    case SET_EXPENSES:
+      return {
+        ...state,
+        expenses: action.payload
+      };
+    case SET_INCOMES:
+      return {
+        ...state,
+        incomes: action.payload
+      };
+    case REMOVE_TRANSACTION:
+      const type = action.payload.type === "Income" ? "incomes" : "expenses";
+      const removeIndex = state[type].indexOf(action.payload);
+      const newTransactionList = [...state[type]];
+      newTransactionList.splice(removeIndex, 1);
+      return {
+        ...state,
+        [type]: newTransactionList
+      };
+    default:
+      return state;
   }
 }
