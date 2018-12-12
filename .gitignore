@@ -65,9 +65,11 @@ typings/
 
 # Run Script For Local Environment
 run-script.sh
+run-script.ps1 
 
 # Git Push
 gitpush.sh
+gitpush.ps1 
 
 # Webstorm config
 .idea
